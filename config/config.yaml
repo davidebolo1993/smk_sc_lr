@@ -1,0 +1,3 @@
+# path or URL to sample sheet (TSV format, columns: sample, condition, ...)
+# samples: config/samples.tsv
+# we do not have this here
