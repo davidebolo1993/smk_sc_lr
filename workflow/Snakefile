@@ -29,6 +29,6 @@ else:
 organizer_reference()
 
 ##### main rules #####
-rule sicelore:
+rule cellranger:
 	input:
 		expand('results/ill_ont/sicelore/cellranger/{sample}/outs/possorted_genome_bam', sample=df_ill['sample_id'].tolist())
