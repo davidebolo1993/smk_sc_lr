@@ -65,4 +65,4 @@ rule illumina_parser:
             -b CB \
             -g GN \
             -u UB
-        '''    
+        '''

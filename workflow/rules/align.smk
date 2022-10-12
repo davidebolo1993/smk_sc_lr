@@ -20,13 +20,13 @@ rule cellranger_count:
 		'docker://edg1983/cellranger:v7.0.1'
 	shell:
 		'''
-		cellranger count \
+		rm -rf {params.out_folder} \
+		&& cellranger count \
 			--id {params.sample_id} \
 			--transcriptome {input.ref} \
 			--fastqs {params.fq_folder} \
 			--localcores {threads} \
 			--localmem {resources.mem_mb} \
-		&& rm -rf {params.out_folder} \
-		&& mv {params.sample_id} results/ill_ont/sicelore/cellranger/
+		&& mv {params.sample_id} results/ill_ont/sicelore/cellranger/{params.sample_id}
 		'''
 
