@@ -32,14 +32,16 @@ rule refflat:
 
 rule decompress_barcodes:
     input:
-        rules.cellranger_count.output.bc
+        rules.cellranger_count.output
     output:
         'results/ill_ont/sicelore/illumina_parser/{sample}.barcodes.tsv'
     threads:
         1
+    params:
+        bc='results/ill_ont/sicelore/cellranger/{sample}/outs/filtered_feature_bc_matrix/barcodes.tsv.gz'
     shell:
         '''
-        zcat {input} > {output}
+        zcat {params.bc} > {output}
         '''
 
 rule illumina_parser:
