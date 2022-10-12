@@ -5,7 +5,7 @@ rule cellranger_count:
 		ref=config['reference'],
 		fq=lambda wildcards:glob('resources/fastq/illumina/{sample}/*'.format(sample=wildcards.sample))
 	output:
-		'results/ill_ont/cellranger/{sample}/outs/possorted_genome_bam'
+		'results/ill_ont/cellranger/{sample}/outs/possorted_genome_bam.bam'
 	threads:
 		config['cellranger']['threads']
 	resources:

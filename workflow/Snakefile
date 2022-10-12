@@ -32,7 +32,7 @@ else:
 ##### main rules #####
 rule cellranger:
 	input:
-		expand('results/ill_ont/cellranger/{sample}/outs/possorted_genome_bam', sample=df_ill['sample_id'].tolist())
+		expand('results/ill_ont/cellranger/{sample}/outs/possorted_genome_bam.bam', sample=df_ill['sample_id'].tolist())
 
 rule sicelore:
 	input:
