@@ -17,5 +17,5 @@ First, modify config/samples.tsv and config/config.yaml accordingly to the exper
 conda activate snakemakeenv_latest
 module load singularity/3.6.3
 
-snakemake --profile config/slurm singularity-args "-B /processing_data/reference_datasets/10xgenomics/2020-A/refdata-gex-GRCh38-2020-A,/project/alfredo/10x_experiment/Illumina_reads" #overall, one has to bind paths to Illumina FASTQ and 10X reference folder
+snakemake --profile config/slurm --singularity-args "-B /processing_data/reference_datasets/10xgenomics/2020-A/refdata-gex-GRCh38-2020-A,/project/alfredo/10x_experiment/Illumina_reads cellranger" #overall, one has to bind paths to Illumina FASTQ and 10X reference folder
 ```

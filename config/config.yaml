@@ -6,4 +6,9 @@ reference: /processing_data/reference_datasets/10xgenomics/2020-A/refdata-gex-GR
 cellranger:
   threads: 30
   mem: 100000
-  time: 12:00:00  
+  time: 12:00:00
+
+sicelore:
+  threads: 32
+  mem: 300000
+  time: 120:00:00
