@@ -1,8 +1,10 @@
 import sys
+from datetime import datetime
 configfile: 'config/config.yaml'
 
 ##### load rules #####
-include: "rules/common.smk"
+include: 'rules/common.smk'
+include: 'rules/align.smk'
 
 ##### organize samples #####
 df_ill,var_ill=organizer_illumina()
@@ -17,11 +19,16 @@ if not var_ont:
 
 else:
 
-    if not var_ill:
+	if not var_ill:
 
-        now=datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-        print('[' + now + ']' + '[Warning] Illumina data are not available. Will use only nanopore data')
-        outvar='ont'
+		now=datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+		print('[' + now + ']' + '[Warning] Illumina data are not available. Will use only nanopore data')
+		outvar='ont'
 
 ##### organize reference #####
 organizer_reference()
+
+##### main rules #####
+rule sicelore:
+	input:
+		expand('results/ill_ont/sicelore/cellranger/{sample}/outs/possorted_genome_bam', sample=df_ill['sample_id'].tolist())

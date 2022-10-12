@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import sys
-import glob
+from glob import glob
 from datetime import datetime
 
 def organizer_illumina():
@@ -51,16 +51,19 @@ def organizer_illumina():
 			print('[' + now + ']' + '[Error] Directory ' + os.path.abspath(x) + '  does not exist')
 			sys.exit(1)
 
-		y=glob.glob(os.path.abspath(x) + "/" + index + "*") #retrive file with id
+		y=glob(os.path.abspath(x) + "/" + index + "*") #retrive file with id
 		resources=os.path.abspath(base + '/resources/fastq/illumina/' + index)
-		os.makedirs(resources, exist_ok=True)
 
-		for fq in y: #create symbolik links
+		if not os.path.exists(resources):
 
-			if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
+			os.makedirs(resources)
 
-				target=os.path.abspath(resources + '/' + os.path.basename(fq))
-				os.symlink(os.path.abspath(fq), target)
+			for fq in y: #create symbolik links
+
+				if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
+
+					target=os.path.abspath(resources + '/' + os.path.basename(fq))
+					os.symlink(os.path.abspath(fq), target)
 
 	return df_,True
 
@@ -96,7 +99,6 @@ def organizer_nanopore():
 
 	df_=df[(df == 'ONT').any(axis=1)]
 
-
 	if df_.shape[0] == 0:
 
 		#just the header, no ONT data
@@ -112,16 +114,19 @@ def organizer_nanopore():
 			print('[' + now + ']' + '[Error] Directory ' + os.path.abspath(x) + '  does not exist')
 			sys.exit(1)
 
-		y=glob.glob(os.path.abspath(x) + "/" + index + "*") #retrive file with id
+		y=glob(os.path.abspath(x) + "/" + index + "*") #retrive file with id
 		resources=os.path.abspath(base + '/resources/fastq/nanopore/' + index)
-		os.makedirs(resources, exist_ok=True)
 
-		for fq in y: #create symbolik links
+		if not os.path.exists(resources):
 
-			if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
+			os.makedirs(resources, exist_ok=True)
 
-				target=os.path.abspath(resources + '/' + os.path.basename(fq))
-				os.symlink(os.path.abspath(fq), target)
+			for fq in y: #create symbolik links
+
+				if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
+
+					target=os.path.abspath(resources + '/' + os.path.basename(fq))
+					os.symlink(os.path.abspath(fq), target)
 
 	return df_,True
 
@@ -139,9 +144,9 @@ def organizer_reference():
 
 	base=os.path.dirname(os.path.abspath(os.path.dirname(config['samples'])))
 	resources=os.path.abspath(base + '/resources/reference')
-	os.makedirs(resources, exist_ok=True)
+	os.makedirs(resources,exist_ok=True)
 	target=os.path.basename(config['reference'])
 
-	if not os.path.exists(target):
+	if not os.path.exists(os.path.abspath(resources + '/' + target)):
 	
 		os.symlink(config['reference'], os.path.abspath(resources + '/' + target))

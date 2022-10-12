@@ -1,0 +1,10 @@
+channels:
+ - bioconda
+dependencies:
+ - java-jdk=8.0.112
+ - minimap2=2.24
+ - spoa=4.0.7
+ - racon=1.5.0
+ - fastp=0.23.2
+ - samtools=1.16.1
+ 

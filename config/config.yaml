@@ -1,3 +1,9 @@
 # path or URL to sample sheet (TSV format, columns: sample, condition, ...)
 samples: config/samples.tsv
 reference: /processing_data/reference_datasets/10xgenomics/2020-A/refdata-gex-GRCh38-2020-A
+
+#configs for single tools
+cellranger:
+  threads: 30
+  mem: 100000
+  time: 12:00:00  

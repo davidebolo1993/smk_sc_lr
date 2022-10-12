@@ -1,0 +1,3 @@
+[submodule "resources/sicelore"]
+	path = resources/sicelore
+	url = https://github.com/ucagenomix/sicelore

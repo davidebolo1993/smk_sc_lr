@@ -5,4 +5,7 @@ results/*
 logs/*
 !.gitignore
 !*/.gitignore
-resources/*
+resources/fastq
+resources/reference
+*_*
+^__

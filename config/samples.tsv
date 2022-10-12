@@ -1,3 +1,3 @@
 sample_id	sample_fastq_dir	sample_type
-CPE005_5GEX	/processing_data/post_processing/genomics/soranzo/10x_experiment/Illumina_reads	ILL
-PAM02053	/processing_data/post_processing/genomics/soranzo/10x_experiment/PromethION_data/fastq_pass	ONT
+CPE005_5GEX	/project/alfredo/10x_experiment/Illumina_reads	ILL
+PAM02053	/project/alfredo/10x_experiment/PromethION_data/fastq_pass	ONT
