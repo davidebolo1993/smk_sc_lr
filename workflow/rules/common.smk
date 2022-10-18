@@ -58,12 +58,12 @@ def organizer_illumina():
 
 			os.makedirs(resources)
 
-			for fq in y: #create symbolik links
+		for fq in y: #create symbolik links
 
-				if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
+			if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
 
-					target=os.path.abspath(resources + '/' + os.path.basename(fq))
-					os.symlink(os.path.abspath(fq), target)
+				target=os.path.abspath(resources + '/' + os.path.basename(fq))
+				os.symlink(os.path.abspath(fq), target)
 
 	return df_,True
 
@@ -119,14 +119,14 @@ def organizer_nanopore():
 
 		if not os.path.exists(resources):
 
-			os.makedirs(resources, exist_ok=True)
+			os.makedirs(resources)
 
-			for fq in y: #create symbolik links
+		for fq in y: #create symbolik links
 
-				if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
+			if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
 
-					target=os.path.abspath(resources + '/' + os.path.basename(fq))
-					os.symlink(os.path.abspath(fq), target)
+				target=os.path.abspath(resources + '/' + os.path.basename(fq))
+				os.symlink(os.path.abspath(fq), target)
 
 	return df_,True
 
