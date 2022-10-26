@@ -24,7 +24,6 @@ def organizer_illumina():
 
 		df=(pd.read_table(config['samples'], dtype={"sample_id": str, "sample_fastq_dir":str, "sample_type":str})
 		.set_index("sample_id", drop=False)
-		.sort_index()
 		)
 
 	except:
@@ -53,17 +52,15 @@ def organizer_illumina():
 
 		y=glob(os.path.abspath(x) + "/" + index + "*") #retrive file with id
 		resources=os.path.abspath(base + '/resources/fastq/illumina/' + index)
-
+		
 		if not os.path.exists(resources):
 
-			os.makedirs(resources)
+			for fq in y: #create symbolik links
 
-		for fq in y: #create symbolik links
+				if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
 
-			if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
-
-				target=os.path.abspath(resources + '/' + os.path.basename(fq))
-				os.symlink(os.path.abspath(fq), target)
+					target=os.path.abspath(resources + '/' + os.path.basename(fq))
+					os.symlink(os.path.abspath(fq), target)
 
 	return df_,True
 
@@ -87,7 +84,6 @@ def organizer_nanopore():
 
 		df=(pd.read_table(config['samples'], dtype={"sample_id": str, "sample_fastq_dir":str, "sample_type":str})
 		.set_index("sample_id", drop=False)
-		.sort_index()
 		)
 
 	except:
@@ -116,19 +112,76 @@ def organizer_nanopore():
 
 		y=glob(os.path.abspath(x) + "/" + index + "*") #retrive file with id
 		resources=os.path.abspath(base + '/resources/fastq/nanopore/' + index)
-
+		
 		if not os.path.exists(resources):
 
-			os.makedirs(resources)
+			for fq in y: #create symbolik links
 
-		for fq in y: #create symbolik links
+				if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
 
-			if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
-
-				target=os.path.abspath(resources + '/' + os.path.basename(fq))
-				os.symlink(os.path.abspath(fq), target)
+					target=os.path.abspath(resources + '/' + os.path.basename(fq))
+					os.symlink(os.path.abspath(fq), target)
 
 	return df_,True
+
+
+def organize_samplesheet_and_resources(df):
+
+	'''
+	Create sample sheet, as described in https://github.com/epi2me-labs/wf-single-cell
+	'''
+	
+	base=os.path.dirname(os.path.abspath(os.path.dirname(config['samples'])))
+	resources=os.path.abspath(base + '/resources/single-cell-sample-sheet')
+	os.makedirs(resources, exist_ok=True)
+	write_sheet='sample_id,kit_name,kit_version,exp_cells\n'
+	c=0
+	
+	for index,row in df.iterrows():
+
+		if config['wf-single-cell']['kit'].split(',')[c] == '5prime':
+
+			if config['wf-single-cell']['version'].split(',')[c] not in ['v1', 'v2']:
+
+				now=datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+				print('[' + now + ']' + '[Error] Wrong kit version in wf-single-cell configuration. Can be either v1 or v2.')
+				sys.exit(1)
+			
+		elif config['wf-single-cell']['kit'].split(',')[c] == '3prime':
+
+			if config['wf-single-cell']['version'].split(',')[c] not in ['v2', 'v3']:
+
+				now=datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+				print('[' + now + ']' + '[Error] Wrong kit version in wf-single-cell configuration. Can be either v2 or v3.')
+				sys.exit(1)
+
+		else:
+
+			now=datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+			print('[' + now + ']' + '[Error] Wrong kit name in wf-single-cell configuration. Can be either ')
+			sys.exit(1)
+
+		write_sheet+=index + ',' + config['wf-single-cell']['kit'].split(',')[c] + ',' + config['wf-single-cell']['version'].split(',')[c] + ',' + (str(500) if str(config['wf-single-cell']['expect_cells']).split(',')[c] == '' else str(config['wf-single-cell']['expect_cells']).split(',')[c]) + '\n'
+		sample_sheet=os.path.abspath(resources + '/' + index + '.single_cell_sample_sheet.csv')
+		
+		with open (sample_sheet, 'w') as sheet_out:
+			
+			sheet_out.write(write_sheet)
+
+		#re-initialize if we have another sample
+		write_sheet='sample_id,kit_name,kit_version,exp_cells\n'
+		c+=1
+
+	resources=os.path.abspath(base + '/resources/single-cell-resources')
+	os.makedirs(resources, exist_ok=True)
+	config_sheet=os.path.abspath(resources + '/wf-single-cell.config')
+
+	write_sheet='executor {\n\t$local {\n\t\tcpus = ' + str(config['wf-single-cell']['threads']) + '\n\t\tmemory = "' +  str(int(config['wf-single-cell']['mem']/1024)) + 'GB"\n\t}\n}\n'
+
+	with open (config_sheet, 'w') as sheet_out:
+			
+		sheet_out.write(write_sheet)
+
 
 def organizer_reference():
 

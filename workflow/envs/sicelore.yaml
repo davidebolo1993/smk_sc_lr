@@ -1,5 +1,6 @@
 channels:
  - bioconda
+ - conda-forge
 dependencies:
  - java-jdk=8.0.112
  - minimap2=2.24
@@ -8,3 +9,4 @@ dependencies:
  - fastp=0.23.2
  - samtools=1.16.1
  - ucsc-gtftogenepred=377 
+ - parallel=20220922

@@ -5,6 +5,7 @@ configfile: 'config/config.yaml'
 ##### load rules #####
 include: 'rules/common.smk'
 include: 'rules/align.smk'
+include: 'rules/wf-single-cell.smk'
 
 ##### organize reference #####
 organizer_reference()
@@ -28,12 +29,13 @@ else:
 		print('[' + now + ']' + '[Warning] Illumina data are not available. Will use only nanopore data')
 		outvar='ont'
 
+organize_samplesheet_and_resources(df_ont)
 
 ##### main rules #####
 rule cellranger:
 	input:
 		expand('results/ill_ont/cellranger/{sample}/outs/possorted_genome_bam.bam', sample=df_ill['sample_id'].tolist())
 
-rule sicelore:
+rule wf_single_cell:
 	input:
-		expand('results/ill_ont/sicelore/illumina_parser/{sample}.illumina.bam.obj', sample=df_ill['sample_id'].tolist())
+		expand('results/ont/wf-single-cell/{sample}/{sample}.gene_expression.counts.tsv', sample=df_ont['sample_id'].tolist())
