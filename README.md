@@ -18,14 +18,11 @@ First, modify config/samples.tsv and config/config.yaml accordingly to the exper
 ## cellranger count (v7.0.1)
 
 ```bash
-snakemake \
-	--profile config/slurm \
-	--singularity-args "-B /processing_data/reference_datasets/10xgenomics/2020-A/refdata-gex-GRCh38-2020-A,/project/alfredo/10x_experiment/Illumina_reads" \
-	cellranger 
+snakemake --profile config/slurm --singularity-args "-B </path/to/directory.to.include>" cellranger
 ```
 
-## sicelore (v2.0)
+## wf-single-cell (v0.1.4 - with additional tweaks from my side)
 
 ```bash
-
+snakemake --profile config/slurm wf-single-cell
 ```
