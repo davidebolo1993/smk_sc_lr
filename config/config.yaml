@@ -6,12 +6,12 @@ reference: /processing_data/reference_datasets/10xgenomics/2020-A/refdata-gex-GR
 cellranger:
   threads: 32
   mem: 100000
-  time: 12:00:00
+  time: "12:00:00"
 
 wf-single-cell:
   threads: 32
   mem: 100000
-  time: 12:00:00
+  time: "72:00:00"
   expect_cells: 10000
   kit: 5prime #can be either 5prime or 3prime. Assumes all the samples have been sequenced with the same kit.
   version: v1 #for 5prime v1, for 3prime either v2 or v3. 5prime v2 should also work specifying 5prime v1 - barcodes are the same (https://kb.10xgenomics.com/hc/en-us/articles/115004506263-What-is-a-barcode-whitelist-). Assumes all the samples have been sequenced with the same kit version.

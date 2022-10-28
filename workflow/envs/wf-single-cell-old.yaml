@@ -25,6 +25,5 @@ dependencies:
   - stringtie==2.2.1
   - gffread
   - gffcompare
-  - salmon==1.9.0
-  - bc
   - nextflow
+

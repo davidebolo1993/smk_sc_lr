@@ -1,3 +1,6 @@
 [submodule "resources/sicelore"]
 	path = resources/sicelore
 	url = https://github.com/ucagenomix/sicelore
+[submodule "resources/wf-single-cell"]
+	path = resources/wf-single-cell
+	url = https://github.com/davidebolo1993/wf-single-cell.git

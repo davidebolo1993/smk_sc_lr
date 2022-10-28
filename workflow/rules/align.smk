@@ -1,6 +1,6 @@
 from glob import glob
 
-rule cellranger_count:
+rule cellranger_count_v701:
 	input:
 		ref=config['reference'],
 		fq=lambda wildcards:glob('resources/fastq/illumina/{sample}/*'.format(sample=wildcards.sample))

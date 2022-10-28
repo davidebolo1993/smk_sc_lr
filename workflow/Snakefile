@@ -36,6 +36,11 @@ rule cellranger:
 	input:
 		expand('results/ill_ont/cellranger/{sample}/outs/possorted_genome_bam.bam', sample=df_ill['sample_id'].tolist())
 
-rule wf_single_cell:
+rule wf_single_cell_old:
 	input:
-		expand('results/ont/wf-single-cell/{sample}/{sample}.gene_expression.counts.tsv', sample=df_ont['sample_id'].tolist())
+		expand('results/ont/wf-single-cell-old/{sample}/{sample}.gene_expression.counts.tsv', sample=df_ont['sample_id'].tolist())
+
+rule wf_single_cell:
+        input:
+              	expand('results/ont/wf-single-cell/{sample}/{sample}.gene_expression.counts.tsv', sample=df_ont['sample_id'].tolist())
+
