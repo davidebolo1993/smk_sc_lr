@@ -13,7 +13,7 @@ conda activate snakemakeenv_latest
 
 ## Adjust samples
 
-First, modify config/samples.tsv and config/config.yaml accordingly to the experimental settings. Following examples refers to settings included in the current repository (current paths make no sense for users outside HT's Population and Medical Genomics)
+First, modify config/samples.tsv and config/config.yaml accordingly to the experimental settings. Following examples refers to settings included in the current repository (current paths in config.yaml and samples.tsv make no sense for users outside HT's Population and Medical Genomics)
 
 ## cellranger count (v7.0.1)
 
