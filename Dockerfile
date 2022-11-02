@@ -39,7 +39,7 @@ RUN apt-get -y install build-essential \
 RUN mkdir -p nextflow_bin \
 	&& cd nextflow_bin \
 	&& wget -qO- https://get.nextflow.io | bash \
-	&& chmod +x nextflow
+	&& chmod 755 nextflow
 
 ENV PATH /opt/nextflow_bin:$PATH
 	
