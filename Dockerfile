@@ -30,6 +30,7 @@ RUN apt-get -y install build-essential \
 	pigz \
 	bc \
 	gawk \
+	git \
 	&& apt-get -y clean all \
 	&& rm -rf /var/cache
 
