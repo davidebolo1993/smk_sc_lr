@@ -16,14 +16,13 @@ rule wf_single_cell_v014:
 		out_folder='results/ont/wf-single-cell/{sample}',
 		fq_folder='resources/fastq/nanopore/{sample}',
 		sample_sheet='resources/single-cell-sample-sheet/{sample}.single_cell_sample_sheet.csv'
-	conda:
-		'../envs/wf-single-cell.yaml'
+	container:
+		'docker://davidebolo1993/wf-single-cell:latest'
 	shell:
 		'''
 		nextflow run resources/wf-single-cell \
 			-w {params.out_folder}/workspace \
 			-profile local \
-			-resume \
 			-c resources/single-cell-resources/wf-single-cell.config \
 			--fastq {params.fq_folder} \
 			--single_cell_sample_sheet {params.sample_sheet} \
