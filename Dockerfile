@@ -33,6 +33,14 @@ RUN apt-get -y install build-essential \
 	&& apt-get -y clean all \
 	&& rm -rf /var/cache
 
+##install nextflow
+
+RUN mkdir -p nextflow_bin \
+	&& cd nextflow_bin \
+	&& wget -qO- https://get.nextflow.io | bash
+
+ENV PATH /opt/nextflow_bin:$PATH
+	
 ##install samtools
 
 RUN wget https://github.com/samtools/samtools/releases/download/1.16.1/samtools-1.16.1.tar.bz2 \
