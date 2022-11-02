@@ -30,6 +30,7 @@ RUN apt-get -y install build-essential \
 	pigz \
 	bc \
 	gawk \
+	openjdk-11-jdk \
 	&& apt-get -y clean all \
 	&& rm -rf /var/cache
 
