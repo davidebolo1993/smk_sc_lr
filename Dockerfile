@@ -63,7 +63,7 @@ ENV PATH /opt/seqkit:$PATH
 
 ##install bedtools
 
-RUN mkidr -p bedtools \
+RUN mkdir -p bedtools \
 	&& cd bedtools \
 	&& wget https://github.com/arq5x/bedtools2/releases/download/v2.30.0/bedtools.static.binary \
 	&& mv bedtools.static.binary bedtools \
