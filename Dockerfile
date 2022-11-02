@@ -12,7 +12,7 @@ WORKDIR /opt
 
 RUN apt-get update
 RUN apt-get -y install build-essential \
-	wget git\
+	wget git \
 	bzip2 libbz2-dev \
 	zlib1g zlib1g-dev \
 	liblzma-dev \
@@ -30,7 +30,6 @@ RUN apt-get -y install build-essential \
 	pigz \
 	bc \
 	gawk \
-	git \
 	&& apt-get -y clean all \
 	&& rm -rf /var/cache
 
@@ -74,11 +73,13 @@ ENV PATH /opt/bedtools:$PATHù
 
 ##install fastcat
 
-RUN git clone --recursive https://github.com/epi2me-labs/fastcat \
-	&& cd fastcat \
+RUN wget https://github.com/epi2me-labs/fastcat/archive/refs/tags/v0.4.12.tar.gz \
+	&& tar -xvzf v0.4.12.tar.gz \
+	&& rm v0.4.12.tar.gz \
+	&& cd fastcat-0.4.12 \
 	&& make fastcat
 
-ENV PATH /opt/fastcat:$PATH
+ENV PATH /opt/fastcat-0.4.12:$PATH
 
 ##install vsearch
 
