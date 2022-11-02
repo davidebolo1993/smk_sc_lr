@@ -69,7 +69,7 @@ RUN mkdir -p bedtools \
 	&& mv bedtools.static.binary bedtools \
 	&& chmod a+x bedtools
 
-ENV PATH /opt/bedtools:$PATHù
+ENV PATH /opt/bedtools:$PATH
 
 ##install fastcat
 
