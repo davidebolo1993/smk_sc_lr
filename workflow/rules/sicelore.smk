@@ -1,3 +1,5 @@
+#dismissed for the time being - I will focus on wf-single-cell for the time being
+
 # rule junctions:
 #     input:
 #        config['reference'] + '/genes/genes.gtf'
