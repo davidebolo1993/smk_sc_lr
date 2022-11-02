@@ -34,12 +34,13 @@ RUN apt-get -y install build-essential \
 	&& apt-get -y clean all \
 	&& rm -rf /var/cache
 
-##install nextflow
+##install nextflow all to work offline
 
 RUN mkdir -p nextflow_bin \
 	&& cd nextflow_bin \
-	&& wget -qO- https://get.nextflow.io | bash \
-	&& chmod 755 nextflow
+	&& wget https://github.com/nextflow-io/nextflow/releases/download/v22.10.1/nextflow-22.10.1-all \
+	&& chmod 755 nextflow-22.10.1-all \
+	&& mv nextflow-22.10.1-all nextflow
 
 ENV PATH /opt/nextflow_bin:$PATH
 	
