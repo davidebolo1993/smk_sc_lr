@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
-LABEL description="graph genotyper"
+LABEL description="wf-single-cell"
 LABEL base_image="ubuntu:latest"
-LABEL software="graph genotyper"
+LABEL software="wf-single-cell"
 LABEL about.home="https://github.com/davidebolo1993/smk_sc_lr"
 LABEL about.license="GPLv3"
 
