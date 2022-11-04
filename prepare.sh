@@ -71,7 +71,7 @@ if [ ! -z "${i}" ]; then
 
 		#dirname=$(basename -- "$f")
 		abspath=$(readlink -f $f)
-		files=$(find $f -type f -name "*" -print -quit)
+		files=$(find $f -type f -name "*GEX*" -print -quit)
 		id=$(basename $files | cut -d "_" -f 1-2)
 		echo -e $id"\t"$abspath"\tILL" >> config/illumina.samples.tsv
 
