@@ -104,7 +104,7 @@ rm config/illumina.samples.tsv config/nanopore.samples.tsv
 
 abspath=$(readlink -f $r)
 echo -n $abspath"," >> singularity_bind_paths.csv
-echo "\localscratch" >> singularity_bind_paths.csv
+echo "/localscratch" >> singularity_bind_paths.csv
 
 #modify config
 sed -i 's,reference:,reference: '"$abspath"',g' config/config.yaml
