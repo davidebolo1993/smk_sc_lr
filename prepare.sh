@@ -92,7 +92,7 @@ for f in $fold; do
 	#dirname=$(basename -- "$f")
         abspath=$(readlink -f $f)
 	files=$(find $f -type f -name "*" -print -quit)
-        id=$(basename $files | cut -d "_" -f 1)
+        id=$(basename $files | cut -d "_" -f 1-2)
 	echo -e $id"\t"$abspath"\tONT" >> config/nanopore.samples.tsv
 
 done
