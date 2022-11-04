@@ -1,6 +1,6 @@
 # path or URL to sample sheet (TSV format, columns: sample, condition, ...)
 samples: config/samples.tsv
-reference: /processing_data/reference_datasets/10xgenomics/2020-A/refdata-gex-GRCh38-2020-A
+reference:
 
 #configs for single tools
 cellranger:
@@ -12,9 +12,9 @@ wf-single-cell:
   threads: 32
   mem: 100000
   time: "72:00:00"
-  expect_cells: 10000
-  kit: 5prime #can be either 5prime or 3prime. Assumes all the samples have been sequenced with the same kit.
-  version: v1 #for 5prime v1, for 3prime either v2 or v3. 5prime v2 should also work specifying 5prime v1 - barcodes are the same (https://kb.10xgenomics.com/hc/en-us/articles/115004506263-What-is-a-barcode-whitelist-). Assumes all the samples have been sequenced with the same kit version.
+  expect_cells:
+  kit: #can be either 5prime or 3prime. Assumes all the samples have been sequenced with the same kit.
+  version:  #for 5prime v1, for 3prime either v2 or v3. 5prime v2 should also work specifying 5prime v1 - barcodes are the same (https://kb.10xgenomics.com/hc/en-us/articles/115004506263-What-is-a-barcode-whitelist-). Assumes all the samples have been sequenced with the same kit version.
 
 # sicelore:
 #   threads: 32

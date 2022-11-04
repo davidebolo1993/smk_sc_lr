@@ -52,15 +52,14 @@ def organizer_illumina():
 
 		y=glob(os.path.abspath(x) + "/" + index + "*") #retrive file with id
 		resources=os.path.abspath(base + '/resources/fastq/illumina/' + index)
-		
-		if not os.path.exists(resources):
+		os.makedirs(resources, exist_ok=True)
 
-			for fq in y: #create symbolik links
+		for fq in y: #create symbolik links
 
-				if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
+			if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
 
-					target=os.path.abspath(resources + '/' + os.path.basename(fq))
-					os.symlink(os.path.abspath(fq), target)
+				target=os.path.abspath(resources + '/' + os.path.basename(fq))
+				os.symlink(os.path.abspath(fq), target)
 
 	return df_,True
 
@@ -103,7 +102,7 @@ def organizer_nanopore():
 	for index, row in df_.iterrows():
 
 		x=row['sample_fastq_dir']
-		
+
 		if not os.path.exists(os.path.abspath(x)):
 
 			now=datetime.now().strftime('%d/%m/%Y %H:%M:%S')
@@ -112,15 +111,14 @@ def organizer_nanopore():
 
 		y=glob(os.path.abspath(x) + "/" + index + "*") #retrive file with id
 		resources=os.path.abspath(base + '/resources/fastq/nanopore/' + index)
-		
-		if not os.path.exists(resources):
+		os.makedirs(resources,exist_ok=True)
 
-			for fq in y: #create symbolik links
+		for fq in y: #create symbolik links
 
-				if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
+			if not os.path.exists(os.path.abspath(resources + '/' + os.path.basename(fq))):
 
-					target=os.path.abspath(resources + '/' + os.path.basename(fq))
-					os.symlink(os.path.abspath(fq), target)
+				target=os.path.abspath(resources + '/' + os.path.basename(fq))
+				os.symlink(os.path.abspath(fq), target)
 
 	return df_,True
 
