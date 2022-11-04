@@ -74,7 +74,7 @@ if [ ! -z "${i}" ]; then
 		files=$(find $f -type f -name "*GEX*" -print -quit)
 		id=$(basename $files | cut -d "_" -f 1-2)
 		echo -e $id"\t"$abspath"\tILL" >> config/illumina.samples.tsv
-		echo $abspath"," >> singularity_bind_paths.csv
+		echo -n $abspath"," >> singularity_bind_paths.csv
 
 	done
 
@@ -95,7 +95,7 @@ for f in $fold; do
 	files=$(find $f -type f -name "*" -print -quit)
         id=$(basename $files | cut -d "_" -f 1)
 	echo -e $id"\t"$abspath"\tONT" >> config/nanopore.samples.tsv
-	echo $abspath"," >> singularity_bind_paths.csv
+	echo -n $abspath"," >> singularity_bind_paths.csv
 done
 
 echo -e "sample_id\tsample_fastq_dir\tsample_type" > config/samples.tsv
@@ -103,7 +103,8 @@ cat config/illumina.samples.tsv config/nanopore.samples.tsv >> config/samples.ts
 rm config/illumina.samples.tsv config/nanopore.samples.tsv
 
 abspath=$(readlink -f $r)
-echo $abspath",/localscratch" >> singularity_bind_paths.csv
+echo -n $abspath"," >> singularity_bind_paths.csv
+echo "\localscratch" >> singularity_bind_paths.csv
 
 #modify config
 sed -i 's,reference:,reference: '"$abspath"',g' config/config.yaml
