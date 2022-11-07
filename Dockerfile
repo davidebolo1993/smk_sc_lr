@@ -56,16 +56,11 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.16.1/samtools-
 
 ##install minimap2/mm2-fast, paftools js and k8 - required by paftools js
 
-RUN git clone --recursive https://github.com/lh3/minimap2.git -b fast-contrib-v2.22 mm2-fast \
-	&& cd mm2-fast \
-	&& make \
-	&& wget https://github.com/attractivechaos/k8/releases/download/0.2.5/k8-0.2.5.tar.bz2 \
-	&& tar -jxvf k8-0.2.5.tar.bz2 \
-	&& rm k8-0.2.5.tar.bz2 \
-	&& cp k8-0.2.5/k8-`uname -s` k8 
+RUN wget https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2 \
+	&& tar -xjvf minimap2-2.24_x64-linux.tar.bz2 \
+	&& rm minimap2-2.24_x64-linux.tar.bz2
 
-ENV PATH /opt/mm2-fast:$PATH
-ENV PATH /opt/mm2-fast/misc:$PATH
+ENV PATH /opt/minimap2-2.24_x64-linux:$PATH
 
 ##install seqkit
 
