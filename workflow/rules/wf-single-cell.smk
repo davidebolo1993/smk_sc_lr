@@ -1,10 +1,10 @@
 from glob import glob
 
 
-rule wf_single_cell_v014:
+rule wf_single_cell_v016:
 	input:
 		ref=config['reference'],
-		fq=lambda wildcards:glob('resources/fastq/illumina/{sample}/*'.format(sample=wildcards.sample))
+		fq=lambda wildcards:glob('resources/fastq/nanopore/{sample}/*'.format(sample=wildcards.sample))
 	output:
 		'results/ont/wf-single-cell/{sample}/{sample}.gene_expression.counts.tsv'
 	threads:

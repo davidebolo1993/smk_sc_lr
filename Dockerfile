@@ -147,4 +147,5 @@ RUN pip3 install pandas \
 	matplotlib \
 	scikit-learn \
 	biopython \
-	umap-learn==0.5.2
+	umap-learn==0.5.2 \
+	flake8

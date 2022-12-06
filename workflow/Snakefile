@@ -4,7 +4,7 @@ configfile: 'config/config.yaml'
 
 ##### load rules #####
 include: 'rules/common.smk'
-include: 'rules/align.smk'
+include: 'rules/count.smk'
 include: 'rules/wf-single-cell.smk'
 
 ##### organize reference #####
@@ -15,6 +15,7 @@ df_ill,var_ill=organizer_illumina()
 df_ont,var_ont=organizer_nanopore()
 outvar='ill_ont'
 
+#this is not useful for the time being, will be in the end
 if not var_ont:
 
 	now=datetime.now().strftime('%d/%m/%Y %H:%M:%S')
@@ -31,11 +32,10 @@ else:
 
 organize_samplesheet_and_resources(df_ont)
 
-
 ##### main rules #####
 ##### add rule all ? #####
 
-rule cellranger:
+rule cellranger_count:
 	input:
 		expand('results/ill_ont/cellranger/{sample}/outs/possorted_genome_bam.bam', sample=df_ill['sample_id'].tolist())
 

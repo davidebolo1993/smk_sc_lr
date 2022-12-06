@@ -73,7 +73,10 @@ if [ ! -z "${i}" ]; then
 		abspath=$(readlink -f $f)
 		files=$(find $f -type f -name "*GEX*" -print -quit)
 		id=$(basename $files | cut -d "_" -f 1-2)
-		echo -e $id"\t"$abspath"\tILL" >> config/illumina.samples.tsv
+		echo -e $id"\t"$abspath"\tILL_GEX" >> config/illumina.samples.tsv
+		#files=$(find $f -type f -name "*_*CR_*" -print -quit)
+		#id=$(basename $files | cut -d "_" -f 1-2)
+		#echo -e $id"\t"$abspath"\tILL_VDJ" >> config/illumina.samples.tsv
 		echo -n $abspath"," >> singularity_bind_paths.csv
 
 	done

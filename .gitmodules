@@ -2,3 +2,6 @@
 [submodule "wf-single-cell"]
 	path = wf-single-cell
 	url = https://github.com/epi2me-labs/wf-single-cell.git
+[submodule "resources/wf-single-cell"]
+	path = resources/wf-single-cell
+	url = https://github.com/epi2me-labs/wf-single-cell.git
