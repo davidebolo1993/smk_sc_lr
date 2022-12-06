@@ -57,6 +57,8 @@ echo "kit type: " $k
 echo "kit version: " $e
 echo "expected cells: " $c
 
+cd ../..
+
 if [ ! -z "${i}" ]; then
 
 	fold=$(find $i -maxdepth 1 -type d -name "*" -not -name $(basename $i))
@@ -115,3 +117,4 @@ sed -i 's,kit:,kit: '"$k"',g' config/config.yaml
 sed -i 's,version:,version: '"$e"',g' config/config.yaml
 sed -i 's,expect_cells:,expect_cells: '"$c"',g' config/config.yaml
 
+cd -
