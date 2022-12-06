@@ -34,6 +34,11 @@ RUN apt-get -y install build-essential \
 	&& apt-get -y clean all \
 	&& rm -rf /var/cache
 
+#python3 to python
+
+RUN ln -s /usr/bin/python3 /usr/bin/python \
+	&& ln -s /usr/bin/pip3 /usr/bin/pip
+
 ##install nextflow all to work offline
 
 RUN mkdir -p nextflow_bin \
