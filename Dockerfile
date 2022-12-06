@@ -104,11 +104,11 @@ ENV PATH /opt/vsearch/vsearch-2.22.1-linux-x86_64-static/bin:$PATH
 
 ##install salmon (1.9.0)
 
-RUN wget https://github.com/COMBINE-lab/salmon/releases/download/v1.9.0/salmon-1.9.0_linux_x86_64.tar.gz \
-	&& tar -xvzf salmon-1.9.0_linux_x86_64.tar.gz \
-	&& rm salmon-1.9.0_linux_x86_64.tar.gz
+#RUN wget https://github.com/COMBINE-lab/salmon/releases/download/v1.9.0/salmon-1.9.0_linux_x86_64.tar.gz \
+#	&& tar -xvzf salmon-1.9.0_linux_x86_64.tar.gz \
+#	&& rm salmon-1.9.0_linux_x86_64.tar.gz
 
-ENV PATH /opt/salmon-1.9.0_linux_x86_64/bin:$PATH
+#ENV PATH /opt/salmon-1.9.0_linux_x86_64/bin:$PATH
 
 ##install stringtie
 
