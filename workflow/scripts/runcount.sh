@@ -1,6 +1,4 @@
 #!/bin/bash
-cd ../..
-
 set -x
 
 #conda environemnt - load
@@ -15,5 +13,3 @@ bindings=$(cat singularity_bind_paths.csv)
 stringb=$(echo "-B $bindings")
 snakemake --unlock
 snakemake --profile config/slurm --singularity-args "$stringb" cellranger_count
-
-cd -

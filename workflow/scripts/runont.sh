@@ -1,6 +1,4 @@
 #!/bin/bash
-cd ../..
-
 set -x
 
 #conda environemnt - load
@@ -16,4 +14,3 @@ stringb=$(echo "-B $bindings")
 snakemake --unlock
 snakemake --profile config/slurm --singularity-args "$stringb" wf_single_cell
 
-cd -
