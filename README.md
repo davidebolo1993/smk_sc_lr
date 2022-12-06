@@ -22,20 +22,21 @@ Either adjust config/config.yaml and config/samples.tsv manually or using the de
 ```
 
 ## Running individual rules on slurm cluster
-## requires snakemake - with some additional packages, like pandas - and singularity
+
+Requires snakemake (with some additional packages - that will be added in the end) and singularity.
 
 ```bash
 #cellranger from 10xGenomics (v7.0.1)
 snakemake --profile config/slurm --singularity-args "-B /path/to/10x/reference_folder,/path/to/illumina/fastq_folder" cellranger_count
 
-#a more convenient way:
+#a more convenient way for PopMed ppl
 ./workflow/scripts/runcount.sh
 ```
 
 ```bash
-#wf-single-cell from epi2me-labs (v0.1.4 - with additional tweaks from my side)
+#wf-single-cell from epi2me-labs (v0.1.6)
 snakemake --profile config/slurm --singularity-args "-B /path/to/10x/reference_folder,/path/to/nanopore/fastq_folder,/localscratch" wf_single_cell
 
-#a more convenient way
+#a more convenient way for PopMed ppl
 ./workflow/scripts/runont.sh
 ```
