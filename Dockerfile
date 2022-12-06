@@ -36,8 +36,7 @@ RUN apt-get -y install build-essential \
 
 #python3 to python
 
-RUN ln -s /usr/bin/python3 /usr/bin/python \
-	&& ln -s /usr/bin/pip3 /usr/bin/pip
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 ##install nextflow all to work offline
 
