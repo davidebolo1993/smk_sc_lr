@@ -1,0 +1,9 @@
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+ - bioconductor-uniprot.ws=2.38.0
+ - r-matrix
+ - r-data.table
+ - r-r.utils
+ - bioconductor-rtracklayer

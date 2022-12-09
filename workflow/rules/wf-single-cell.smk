@@ -6,7 +6,8 @@ rule wf_single_cell_v016:
 		ref=config['reference'],
 		fq=lambda wildcards:glob('resources/fastq/nanopore/{sample}/*'.format(sample=wildcards.sample))
 	output:
-		'results/ont/wf-single-cell/{sample}/{sample}.gene_expression.counts.tsv'
+		genes='results/ont/wf-single-cell/{sample}/{sample}/{sample}.gene_expression.counts.tsv',
+		transcripts='results/ont/wf-single-cell/{sample}/{sample}/{sample}.transcript_expression.counts.tsv'
 	threads:
 		config['wf-single-cell']['threads']
 	resources:
@@ -35,5 +36,39 @@ rule wf_single_cell_v016:
 			--umi_cluster_max_threads {threads} \
 			--resources_mm2_max_threads {threads} \
 			--merge_bam
+		'''
+
+rule wf_single_cell_v016_to_10xlike_genes:
+	input:
+		tsv=rules.wf_single_cell_v016.output.genes,
+		gtf=config['reference'] + '/genes/genes.gtf'
+	output:
+		'results/ont/wf-single-cell/{sample}/{sample}/10x-genes/matrix.mtx.gz'
+	threads:
+		1
+	conda:
+		'../envs/r-env.yml'
+	params:
+		out_folder='results/ont/wf-single-cell/{sample}/{sample}/10x-genes'
+	shell:
+		'''
+		Rscript workflow/scripts/tsvtomtx.r -c {input.tsv} -g {output} -b -o {params.outfolder}
+		'''
+
+rule wf_single_cell_v016_to_10xlike_transcripts:
+	input:
+		tsv=rules.wf_single_cell_v016.output.transcripts,
+		gtf=config['reference'] + '/genes/genes.gtf'
+	output:
+		'results/ont/wf-single-cell/{sample}/{sample}/10x-transcripts/matrix.mtx.gz'
+	threads:
+		1
+	conda:
+		'../envs/r-env.yml'
+	params:
+		out_folder='results/ont/wf-single-cell/{sample}/{sample}/10x-transcripts'
+	shell:
+		'''
+		Rscript workflow/scripts/tsvtomtx.r -c {input.tsv} -g {output} -t -b -o {params.outfolder}
 		'''
 

@@ -41,5 +41,7 @@ rule cellranger_count:
 
 rule wf_single_cell:
         input:
-            expand('results/ont/wf-single-cell/{sample}/{sample}.gene_expression.counts.tsv', sample=df_ont['sample_id'].tolist())
+            expand('results/ont/wf-single-cell/{sample}/{sample}/{sample}.gene_expression.counts.tsv', sample=df_ont['sample_id'].tolist())
+			expand('results/ont/wf-single-cell/{sample}/{sample}/10x-genes/matrix.mtx.gz', sample=df_ont['sample_id'].tolist())
+			expand('results/ont/wf-single-cell/{sample}/{sample}/10x-transcripts/matrix.mtx.gz', sample=df_ont['sample_id'].tolist())
 

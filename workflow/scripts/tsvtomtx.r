@@ -41,10 +41,10 @@ writeGzFile <- function(x,file){
 options(warn = -1)
 
 option_list = list(
-  make_option(c('-c', '--counts'), action='store', type='character', help='gene/transcript counts .tsv'),
+  	make_option(c('-c', '--counts'), action='store', type='character', help='gene/transcript counts .tsv'),
 	make_option(c('-g', '--gtf'), action='store', type='character', help='gene model in .gtf format'),
 	make_option(c('-o', '--output'), action='store', type='character', help='output directory'),
-        make_option(c('-t', '--transcript'), action='store_true', default=FALSE, help='use transcript matrix instead of gene matrix'),
+    make_option(c('-t', '--transcript'), action='store_true', default=FALSE, help='use transcript matrix instead of gene matrix'),
 	make_option(c('-b', '--biotype'), action='store_true', default=FALSE, help='additionally store a features-like file with biotypes')
 )
 
