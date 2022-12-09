@@ -52,7 +52,7 @@ rule wf_single_cell_v016_to_10xlike_genes:
 		out_folder='results/ont/wf-single-cell/{sample}/{sample}/10x-genes'
 	shell:
 		'''
-		Rscript workflow/scripts/tsvtomtx.r -c {input.tsv} -g {output} -b -o {params.outfolder}
+		Rscript workflow/scripts/tsvtomtx.r -c {input.tsv} -g {output} -b -o {params.out_folder}
 		'''
 
 rule wf_single_cell_v016_to_10xlike_transcripts:
@@ -69,6 +69,6 @@ rule wf_single_cell_v016_to_10xlike_transcripts:
 		out_folder='results/ont/wf-single-cell/{sample}/{sample}/10x-transcripts'
 	shell:
 		'''
-		Rscript workflow/scripts/tsvtomtx.r -c {input.tsv} -g {output} -t -b -o {params.outfolder}
+		Rscript workflow/scripts/tsvtomtx.r -c {input.tsv} -g {output} -t -b -o {params.out_folder}
 		'''
 
