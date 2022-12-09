@@ -4,7 +4,6 @@ LABEL base_image="ubuntu:latest"
 LABEL software="wf-single-cell"
 LABEL about.home="https://github.com/davidebolo1993/smk_sc_lr"
 LABEL about.license="GPLv3"
-
 ARG DEBIAN_FRONTEND=noninteractive
 #install basic libraries and python
 
