@@ -104,9 +104,9 @@ if (!opt$transcript) {
 		now<-Sys.time()
 		message('[',now,'][Message] extracting biotypes')
 		bios<-do.call(c,lapply(rownames(gbm),function(x) {unique(gtf_df[gene_name == x]$gene_type)[1]}))
-                now<-Sys.time()
-                message('[',now,'][Message] done')
-                message('[',now,'][Message] storing to file')		
+        now<-Sys.time()
+        message('[',now,'][Message] done')
+        message('[',now,'][Message] storing to file')		
 		writeGzFile(x = data.frame(V1=rownames(gbm),V2=vals, V3=bios), file =file.path(opt$output,"biotypes.tsv.gz"))
 	}
 
