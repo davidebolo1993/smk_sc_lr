@@ -7,3 +7,4 @@ dependencies:
  - r-data.table
  - r-r.utils
  - bioconductor-rtracklayer
+ - r-optparse
