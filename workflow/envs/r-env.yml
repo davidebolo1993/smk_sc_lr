@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
  - bioconductor-uniprot.ws=2.38.0
+ - bioconductor-omnipathr=3.5.25
  - r-matrix
  - r-data.table
  - r-r.utils
