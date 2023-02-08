@@ -16,6 +16,11 @@ wf-single-cell:
   kit: #can be either 5prime or 3prime. Assumes all the samples have been sequenced with the same kit.
   version:  #for 5prime v1, for 3prime either v2 or v3. 5prime v2 should also work specifying 5prime v1 - barcodes are the same (https://kb.10xgenomics.com/hc/en-us/articles/115004506263-What-is-a-barcode-whitelist-). Assumes all the samples have been sequenced with the same kit version.
 
+blaze:
+  threads: 32
+  mem: 100000
+  time: "72:00:00"
+
 # sicelore:
 #   threads: 32
 #   mem: 300000

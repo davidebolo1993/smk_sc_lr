@@ -1,0 +1,14 @@
+channels:
+  - bioconda
+  - default
+dependencies:
+  - python=3.7
+  - Biopython
+  - pandas
+  # - pysam
+  - numpy
+  - tqdm
+  - matplotlib
+  - pip
+  - pip:
+    - python-Levenshtein

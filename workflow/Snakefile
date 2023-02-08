@@ -6,6 +6,7 @@ configfile: 'config/config.yaml'
 include: 'rules/common.smk'
 include: 'rules/count.smk'
 include: 'rules/wf-single-cell.smk'
+include: 'rules/blaze.smk'
 
 ##### organize reference #####
 organizer_reference()
@@ -45,3 +46,6 @@ rule wf_single_cell:
 			expand('results/ont/wf-single-cell/{sample}/{sample}/10x-genes/matrix.mtx.gz', sample=df_ont['sample_id'].tolist()),
 			expand('results/ont/wf-single-cell/{sample}/{sample}/10x-transcripts/matrix.mtx.gz', sample=df_ont['sample_id'].tolist())
 
+rule blaze:
+	input:
+		expand('results/ont/blaze/{sample}/whitelist.csv', sample=df_ont['sample_id'].tolist()),
