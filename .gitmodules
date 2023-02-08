@@ -5,3 +5,6 @@
 [submodule "resources/wf-single-cell"]
 	path = resources/wf-single-cell
 	url = https://github.com/epi2me-labs/wf-single-cell.git
+[submodule "resources/BLAZE"]
+	path = resources/BLAZE
+	url = https://github.com/shimlab/BLAZE.git
