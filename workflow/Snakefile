@@ -46,6 +46,6 @@ rule wf_single_cell:
 			expand('results/ont/wf-single-cell/{sample}/{sample}/10x-genes/matrix.mtx.gz', sample=df_ont['sample_id'].tolist()),
 			expand('results/ont/wf-single-cell/{sample}/{sample}/10x-transcripts/matrix.mtx.gz', sample=df_ont['sample_id'].tolist())
 
-rule blaze:
+rule blaze_barcodes:
 	input:
-		expand('results/ont/blaze/{sample}/whitelist.csv', sample=df_ont['sample_id'].tolist()),
+		expand('results/ont/blaze/{sample}/whitelist.csv', sample=df_ont['sample_id'].tolist())
