@@ -1,0 +1,13 @@
+configfile: 'config/config.evaluation.yaml'
+
+##### load rules #####
+include: 'rules/sicelore_data.smk'
+
+##### main rules #####
+##### add rule all ? #####
+
+rule evaluate_sicelore_data:
+	input:
+		'evaluation/results/sicelore_data/cellranger/HLH5CBGX5_HTHMLBGX3/outs/possorted_genome_bam.bam',
+		'evaluation/results/sicelore_data/blaze/SRR9008425/whitelist.csv',
+		'evaluation/results/sicelore_data/wf-single-cell/SRR9008425/SRR9008425/SRR9008425.transcript_expression.counts.tsv'

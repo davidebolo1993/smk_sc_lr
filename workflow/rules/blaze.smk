@@ -23,9 +23,9 @@ rule blaze_v110:
 		'''
 		cd {params.out_folder} \
 		&& python {params.blaze} \
-			--expect-cells {params.cells} \
-			--kit-version {params.version} \
-			--threads {threads} \
-			--batch-size 10000 \
+			--expect-cells={params.cells} \
+			--kit-version={params.version} \
+			--threads={threads} \
+			--batch-size=10000 \
 			{params.fq_folder}
 		'''
