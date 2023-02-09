@@ -9,8 +9,6 @@ resources/fastq
 resources/reference
 resources/single-cell-sample-sheet
 resources/single-cell-resources
-*_*
-^__
 .config
 .cache
 .nextflow
