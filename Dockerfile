@@ -140,7 +140,7 @@ ENV PATH /opt/gffcompare-0.12.6.Linux_x86_64:$PATH
 ##install additional python3 modules
 
 RUN pip3 install pandas \
-	numpy \
+	numpy==1.23.5 \
 	scipy \
 	tqdm \
 	pysam \
