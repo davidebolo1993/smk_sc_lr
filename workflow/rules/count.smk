@@ -1,6 +1,6 @@
 from glob import glob
 
-rule cellranger_count_v701:
+rule cellranger_count_v710:
 	input:
 		ref=config['reference'],
 		fq=lambda wildcards:glob('resources/fastq/illumina/{sample}/*'.format(sample=wildcards.sample))
@@ -15,7 +15,7 @@ rule cellranger_count_v701:
 		fq_folder='../../../resources/fastq/illumina/{sample}',
 		sample_id='{sample}'
 	container:
-		'docker://edg1983/cellranger:v7.0.1'
+		'docker://edg1983/cellranger:v7.1.0'
 	shell:
 		'''
 		cd results/ill/cellranger \

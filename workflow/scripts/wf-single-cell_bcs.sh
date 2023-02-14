@@ -1,7 +1,5 @@
 #!/bin/bash
 
-module load samtools/1.15
-
 cd $1
 
 tail -n +2 *_read_tags.tsv | cut -f 4 | sort | uniq -c | awk 'OFS="\t"''{print $2"-1", $1, "1"}' > consensus.tsv

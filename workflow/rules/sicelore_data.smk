@@ -1,6 +1,6 @@
 from glob import glob
 
-rule cellranger_count_v701:
+rule cellranger_count_v710:
 	input:
 		ref=config['reference'],
 		fq= glob('evaluation/data/sicelore_data/illumina/HLH5CBGX5_HTHMLBGX3/*/*')
@@ -15,7 +15,7 @@ rule cellranger_count_v701:
 		fq_folder='../../../data/sicelore_data/illumina/HLH5CBGX5_HTHMLBGX3',
 		sample_id='HLH5CBGX5_HTHMLBGX3'
 	container:
-		'docker://edg1983/cellranger:v7.0.1'
+		'docker://edg1983/cellranger:v7.1.0'
 	shell:
 		'''
 		cd evaluation/results/sicelore_data/cellranger/ \
@@ -108,11 +108,13 @@ rule knee_data_blaze:
 
 rule knee_data_cellranger:
 	input:
-		rules.cellranger_count_v701.output
+		rules.cellranger_count_v710.output
 	output:
 		'evaluation/results/sicelore_data/cellranger/HLH5CBGX5_HTHMLBGX3/outs/bcs.tsv'
 	threads:
 		1
+	container:
+		'docker://davidebolo1993/wf-single-cell:latest'
 	shell:
 		'''
 		bash workflow/scripts/cellranger_bcs.sh evaluation/results/sicelore_data/cellranger/HLH5CBGX5_HTHMLBGX3/outs
@@ -125,6 +127,8 @@ rule knee_data_wf_single_cell:
 		'evaluation/results/sicelore_data/wf-single-cell/SRR9008425/SRR9008425/bcs.tsv'
 	threads:
 		1
+	container:
+		'docker://davidebolo1993/wf-single-cell:latest'
 	shell:
 		'''
 		bash workflow/scripts/wf-single-cell_bcs.sh evaluation/results/sicelore_data/wf-single-cell/SRR9008425/SRR9008425

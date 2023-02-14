@@ -11,6 +11,6 @@ module load singularity/3.6.3
 #run
 bindings=$(cat evaluation/singularity_bind_paths.csv)
 stringb=$(echo "-B $bindings")
-snakemake --unlock
+#snakemake --unlock
 snakemake --profile config/slurm --singularity-args "$stringb" --snakefile workflow/Snakefile.evaluation evaluate_sicelore_data
 
