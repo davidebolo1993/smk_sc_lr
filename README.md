@@ -34,7 +34,7 @@ snakemake --profile config/slurm --singularity-args "-B /path/to/10x/reference_f
 ```
 
 ```bash
-#wf-single-cell from epi2me-labs (v0.1.6)
+#wf-single-cell from epi2me-labs (v0.2.0)
 snakemake --profile config/slurm --singularity-args "-B /path/to/10x/reference_folder,/path/to/nanopore/fastq_folder,/localscratch" wf_single_cell
 
 #a more convenient way for PopMed ppl
