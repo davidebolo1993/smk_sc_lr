@@ -1,6 +1,6 @@
 from glob import glob
 
-rule wf_single_cell_v019:
+rule wf_single_cell_v020:
 	input:
 		ref=config['reference'],
 		fq=lambda wildcards:glob('resources/fastq/nanopore/{sample}/*'.format(sample=wildcards.sample))
@@ -37,9 +37,9 @@ rule wf_single_cell_v019:
 			--merge_bam
 		'''
 
-rule wf_single_cell_v019_to_10xlike_genes:
+rule wf_single_cell_v020_to_10xlike_genes:
 	input:
-		tsv=rules.wf_single_cell_v019.output.genes,
+		tsv=rules.wf_single_cell_v020.output.genes,
 		gtf=config['reference'] + '/genes/genes.gtf'
 	output:
 		'results/ont/wf-single-cell/{sample}/{sample}/10x-genes/matrix.mtx.gz'
@@ -54,9 +54,9 @@ rule wf_single_cell_v019_to_10xlike_genes:
 		Rscript workflow/scripts/tsvtomtx.r -c {input.tsv} -g {input.gtf} -b -o {params.out_folder}
 		'''
 
-rule wf_single_cell_v019_to_10xlike_transcripts:
+rule wf_single_cell_v020_to_10xlike_transcripts:
 	input:
-		tsv=rules.wf_single_cell_v019.output.transcripts,
+		tsv=rules.wf_single_cell_v020.output.transcripts,
 		gtf=config['reference'] + '/genes/genes.gtf'
 	output:
 		'results/ont/wf-single-cell/{sample}/{sample}/10x-transcripts/matrix.mtx.gz'

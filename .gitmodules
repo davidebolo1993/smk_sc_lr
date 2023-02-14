@@ -8,3 +8,6 @@
 [submodule "resources/BLAZE"]
 	path = resources/BLAZE
 	url = https://github.com/shimlab/BLAZE.git
+[submodule "resources/scNanoGPS"]
+	path = resources/scNanoGPS
+	url = https://github.com/gaolabtools/scNanoGPS.git

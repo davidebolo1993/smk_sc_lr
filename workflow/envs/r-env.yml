@@ -1,6 +1,7 @@
 channels:
   - bioconda
   - conda-forge
+  - r
 dependencies:
  - bioconductor-uniprot.ws=2.38.0
  - bioconductor-omnipathr=3.5.25
@@ -9,3 +10,7 @@ dependencies:
  - r-r.utils
  - bioconductor-rtracklayer
  - r-optparse
+ - r-ggplot2
+ - r-tidyverse
+ - r-ggupset
+ - r-gridextra

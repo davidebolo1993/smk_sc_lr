@@ -28,7 +28,7 @@ rule cellranger_count_v701:
 			--localmem {resources.mem_mb}
 		'''
 
-rule wf_single_cell_v019:
+rule wf_single_cell_v020:
 	input:
 		ref=config['reference'],
 		fq='evaluation/data/sicelore_data/nanopore/SRR9008425/SRR9008425.fastq'
@@ -92,4 +92,66 @@ rule blaze_v110:
 			--threads={threads} \
 			--batch-size=10000 \
 			{params.fq_folder}
+		'''
+
+rule knee_data_blaze:
+	input:
+		rules.blaze_v110.output
+	output:
+		'evaluation/results/sicelore_data/blaze/SRR9008425/bcs.tsv'
+	threads:
+		1
+	shell:
+		'''
+		bash workflow/scripts/blaze_bcs.sh evaluation/results/sicelore_data/blaze/SRR9008425
+		'''
+
+rule knee_data_cellranger:
+	input:
+		rules.cellranger_count_v701.output
+	output:
+		'evaluation/results/sicelore_data/cellranger/HLH5CBGX5_HTHMLBGX3/outs/bcs.tsv'
+	threads:
+		1
+	shell:
+		'''
+		bash workflow/scripts/cellranger_bcs.sh evaluation/results/sicelore_data/cellranger/HLH5CBGX5_HTHMLBGX3/outs
+		'''
+
+rule knee_data_wf_single_cell:
+	input:
+		rules.wf_single_cell_v020.output
+	output:
+		'evaluation/results/sicelore_data/wf-single-cell/SRR9008425/SRR9008425/bcs.tsv'
+	threads:
+		1
+	shell:
+		'''
+		bash workflow/scripts/wf-single-cell_bcs.sh evaluation/results/sicelore_data/wf-single-cell/SRR9008425/SRR9008425
+		'''
+
+rule combine_knee_data:
+	input:
+		rules.knee_data_blaze.output, rules.knee_data_cellranger.output, rules.knee_data_wf_single_cell.output
+	output:
+		'evaluation/results/sicelore_data/bcs.tsv'
+	threads:
+		1
+	shell:
+		'''
+		cat {input} > {output}
+		'''
+
+rule plot_knee_data:
+	input:
+		rules.combine_knee_data.output
+	output:
+		'evaluation/results/sicelore_data/evaluation.pdf'
+	threads:
+		1
+	conda:
+		'../envs/r-env.yml'
+	shell:
+		'''
+		Rscript workflow/scripts/plotevaluation.r {input} {output}
 		'''
