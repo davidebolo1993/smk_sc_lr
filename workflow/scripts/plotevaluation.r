@@ -13,7 +13,7 @@ pathout<-file.path(args[2])
 
 #knee plots
 df<-fread(pathin)
-p<-ggplot(df,aes(x=V1,y=V4,col=V3)) + 
+p<-ggplot(df,aes(x=V1,y=V4,col=as.character(V3))) + 
   geom_point(size=.5, show.legend = F) +
   scale_y_log10() +
   scale_x_log10() +
@@ -21,7 +21,8 @@ p<-ggplot(df,aes(x=V1,y=V4,col=V3)) +
   theme_bw() + 
   labs (x="CB", y="#CB") +
   theme(strip.background =element_rect(fill="grey20")) +
-  theme(strip.text = element_text(colour = 'white'))
+  theme(strip.text = element_text(colour = 'white')) +
+  scale_color_manual(values=c("0" = "black", "1" = "#e34234"))
 
 
 #upset plot
@@ -40,8 +41,9 @@ q<-as_tibble(cbind(uni, labels)) %>%
   geom_bar() +
   scale_x_upset() +
   theme_bw () +
+  geom_text(stat='count', aes(label=after_stat(count)), vjust=-.5, size=2.5) +
   labs(x="", y="Intersection Size") +
-  theme_combmatrix(combmatrix.panel.point.color.fill = "darkred",
+  theme_combmatrix(combmatrix.panel.point.color.fill = "#e34234",
                    combmatrix.panel.point.color.empty = "grey20",
                    combmatrix.panel.line.size = 0,
                    combmatrix.label.make_space = FALSE,
@@ -55,4 +57,4 @@ t<-grid.arrange(empty,q,
              ncol = 5, nrow = 2, 
              layout_matrix = rbind(c(1,2,2,2,1), c(3,3,3,3,3)))
 
-ggsave(t, filename=pathout)
+ggsave(t, filename=pathout, width=12, height=15)

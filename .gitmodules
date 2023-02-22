@@ -11,3 +11,6 @@
 [submodule "resources/scNanoGPS"]
 	path = resources/scNanoGPS
 	url = https://github.com/gaolabtools/scNanoGPS.git
+[submodule "resources/sicelore-2.1"]
+	path = resources/sicelore-2.1
+	url = https://github.com/ucagenomix/sicelore-2.1.git

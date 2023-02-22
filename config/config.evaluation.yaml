@@ -1,6 +1,5 @@
 #substitute this with a path to reference
 reference: /processing_data/reference_datasets/10xgenomics/2020-A/refdata-gex-GRCh38-2020-A
-
 #configs for all tools on single dataset
 
 sicelcore_data:
