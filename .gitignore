@@ -17,4 +17,8 @@ resources/ont
 .nextflow
 .nextflow.log
 .nextflow/*
-evaluation
+evaluation/data/sicelore_data/illumina
+evaluation/data/sicelore_data/nanopore
+evaluation/data/scmixology2_data/illumina
+evaluation/data/scmixology2_data/nanopore
+evaluation/results

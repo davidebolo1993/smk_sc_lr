@@ -2,13 +2,17 @@
 
 This documentation - with additional info - will be hosted [here](https://davidebolo1993.github.io/smk_sc_lr_doc) at some point
 
-## Clone the repository and activate environment
+## Clone the repository
 
 ```bash
 #clone
 git clone --recursive https://github.com/davidebolo1993/smk_sc_lr
 cd smk_sc_lr
 ```
+
+## Create a dedicated conda environment
+
+
 
 ## Setting up
 

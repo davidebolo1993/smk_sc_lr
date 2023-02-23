@@ -7,7 +7,6 @@
 #https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE130708
 #(Raw data are available in SRA)
 #https://trace.ncbi.nlm.nih.gov/Traces/?view=run_browser&acc=SRR9008424&display=metadata
-#will wrap a container with tools in the end?
 
 module load sratoolkit/3.0.0
 
@@ -33,7 +32,7 @@ rm -rf $illbamdir
 #https://trace.ncbi.nlm.nih.gov/Traces/?view=run_browser&acc=SRR9008425&display=metadata
 
 accession="SRR9008425"
-nanofastqdir="evaluation/sicelore_data/nanopore/"$accession
+nanofastqdir="evaluation/data/sicelore_data/nanopore/"$accession
 mkdir -p $nanofastqdir && cd $nanofastqdir
 
 prefetch $accession
