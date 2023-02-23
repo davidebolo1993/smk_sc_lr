@@ -1,116 +1,44 @@
 #!/bin/bash
 
-usage() { echo "Usage: $0 [-r </path/to/10x/reference_folder>] [-i </path/to/illumina/fastq_folder>] [-n </path/to/nanopore/fastq_folder>] [-k <kit.string>] [-e <kit.version.string>] [-c <cells.int>]" 1>&2; exit 1; }
+config="config/config.yaml"
+samples="config/samples.tsv"
 
-while getopts ":r:i:n:k:e:c:" opt; do
-    case "${opt}" in
-        r)
-            r=${OPTARG}
-            ;;
-        i)
-            i=${OPTARG}
-            ;;
-	n)
-            n=${OPTARG}
-            ;;
-	k)
-	    k=${OPTARG}
-	    ;;
-	e)
-	    e=${OPTARG}
-	    ;;
-	c)
-            c=${OPTARG}
-            ;;
-        *)
-            usage
-            ;;
-    esac
-done
-shift $((OPTIND-1))
+#get reference from samples.tsv
+refdir=$(grep -w "reference" $config | cut -d ":" -f 2  | sed 's/ *//g')
+vdjrefdir=$(grep -w "reference_vdj" $config | cut -d ":" -f 2  | sed 's/ *//g')
+#get paths for samples
+echo "/localscratch" > singularity_bind_paths.tmp.csv
 
-if [ -z "${r}" ]; then
-	echo "missing 10x reference folder" && usage
-elif [ -z "${n}" ]; then
-	echo "missing nanopore fastq folder" && usage
-elif [ -z "${i}" ]; then
-	echo "missing illumina fastq folder, assuming only nanopore data are available"
-fi
+#kit,version,cells
+mkdir -p resources/single-cell-sample-sheet
+kit=$(grep "kit:" $config | cut -d "#" -f 1 | cut -d ":" -f 2| sed 's/ *//g')
+version=$(grep "version:" $config | cut -d "#" -f 1 | cut -d ":" -f 2| sed 's/ *//g')
+cells=$(grep "expect_cells:" $config | cut -d "#" -f 1 | cut -d ":" -f 2| sed 's/ *//g')
 
+tail -n+2 $samples | while IFS=$'\t' read -r name sample_type files; do
 
-if [ -z "${e}" ]; then
-	e="v1"
-fi
+	IFS=',' read -r -a array <<< "$files"
+	for element in "${array[@]}"; do  dirname "$element" >> singularity_bind_paths.tmp.csv ; done
 
-if [ -z "${k}" ]; then
-	k="5prime"
-fi
+	if [ ! -d resources/$sample_type/$name ]; then
 
-if [ -z "${c}" ]; then
-	c="10000"
-fi
-
-echo "10x reference folder: " $r
-echo "nanopore fastq folder: " $n
-echo "illumina fastq folder: " $i
-echo "kit type: " $k
-echo "kit version: " $e
-echo "expected cells: " $c
-
-if [ ! -z "${i}" ]; then
-
-	fold=$(find $i -maxdepth 1 -type d -name "*" -not -name $(basename $i))
-
-	if [ -z "${fold}" ]; then
-
-		fold=$(find $i -maxdepth 1 -type d -name "*")
+		mkdir -p resources/$sample_type/$name
+		echo $name","$sample_type",$files"
+		if [ "$sample_type" == "ont" ]; then echo "sample_id,kit_name,kit_version,exp_cells" > resources/single-cell-sample-sheet/$name".single_cell_sample_sheet.csv" && echo $name","$kit","$version","$cells >> resources/single-cell-sample-sheet/$name".single_cell_sample_sheet.csv"; fi
+		#iterate over single files
+		for element in "${array[@]}"; do for f in $element; do b=$(basename $f) && ln -sf $(readlink -f $f) resources/$sample_type/$name/$b; done; done
 
 	fi
-
-	for f in $fold; do
-
-		#dirname=$(basename -- "$f")
-		abspath=$(readlink -f $f)
-		files=$(find $f -type f -name "*GEX*" -print -quit)
-		id=$(basename $files | cut -d "_" -f 1-2)
-		echo -e $id"\t"$abspath"\tILL_GEX" >> config/illumina.samples.tsv
-		#files=$(find $f -type f -name "*_*CR_*" -print -quit)
-		#id=$(basename $files | cut -d "_" -f 1-2)
-		#echo -e $id"\t"$abspath"\tILL_VDJ" >> config/illumina.samples.tsv
-		echo -n $abspath"," >> singularity_bind_paths.csv
-
-	done
-
-fi
-
-fold=$(find $n -maxdepth 1 -type d -name "*" -not -name $(basename $n))
-
-if [ -z "${fold}" ]; then
-
-	fold=$(find $n -maxdepth 1 -type d -name "*")
-
-fi
-
-for f in $fold; do
-
-	#dirname=$(basename -- "$f")
-        abspath=$(readlink -f $f)
-	files=$(find $f -type f -name "*" -print -quit)
-        id=$(basename $files | cut -d "_" -f 1)
-	echo -e $id"\t"$abspath"\tONT" >> config/nanopore.samples.tsv
-	echo -n $abspath"," >> singularity_bind_paths.csv
 done
 
-echo -e "sample_id\tsample_fastq_dir\tsample_type" > config/samples.tsv
-cat config/illumina.samples.tsv config/nanopore.samples.tsv >> config/samples.tsv 
-rm config/illumina.samples.tsv config/nanopore.samples.tsv
+echo "$refdir" >> singularity_bind_paths.tmp.csv
+echo "$vdjrefdir" >> singularity_bind_paths.tmp.csv
+cat singularity_bind_paths.tmp.csv | sort | uniq | tr '\n' ',' > singularity_bind_paths.csv && rm singularity_bind_paths.tmp.csv
 
-abspath=$(readlink -f $r)
-echo -n $abspath"," >> singularity_bind_paths.csv
-echo "/localscratch" >> singularity_bind_paths.csv
+cpus=$(grep -A 3 "wf-single-cell:" $config | grep "threads" | cut -d "#" -f 1 | cut -d ":" -f 2| sed 's/ *//g')
+mem=$(grep -A 3 "wf-single-cell:" $config | grep "mem" | cut -d "#" -f 1 | cut -d ":" -f 2| sed 's/ *//g')
+memGB=$(echo $((mem / 1024)))
 
-#modify config
-sed -i 's,reference:,reference: '"$abspath"',g' config/config.yaml
-sed -i 's,kit:,kit: '"$k"',g' config/config.yaml
-sed -i 's,version:,version: '"$e"',g' config/config.yaml
-sed -i 's,expect_cells:,expect_cells: '"$c"',g' config/config.yaml
+mkdir -p resources/single-cell-resources/
+echo -e "executor {\n\t\$local {\n\t\tcpus = $cpus\n\t\tmemory = \"$memGB"GB"\"\n\t}\n}" > resources/single-cell-resources/wf-single-cell.config
+

@@ -1,1 +1,6 @@
-sample_id	sample_fastq_dir	sample_type
+sample_id	sample_type	sample_fastq_dir
+CPE005	illumina_gex	/project/alfredo/10x_experiment/Illumina_reads/*5GEX*
+CPE005	illumina_vdj	/project/alfredo/10x_experiment/Illumina_reads/*TCR*    
+PAM02053	ont	/project/alfredo/10x_experiment/PromethION_data/fastq_pass/*gz
+PAM02029	ont	/project/alfredo/10x_experiment/PromethION_data_CPE_005_5w/fastq_pass/*gz
+
