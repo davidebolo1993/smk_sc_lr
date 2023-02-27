@@ -164,6 +164,7 @@ rule sicelore_scanfastq_noill_v210:
 	
 rule sicelore_scanfastq_ill_v210:
 	input:
+		rules.cellranger_count_v710.output,
 		'evaluation/data/sicelore_data/nanopore/SRR9008425/SRR9008425.fastq',
 	output:
 		'evaluation/results/sicelore_data/sicelore/SRR9008425/umifinder_ill/BarcodesAssigned.tsv'
@@ -322,3 +323,4 @@ rule plot_knee_data:
 		'''
 		Rscript workflow/scripts/plotevaluation.r {input} {output}
 		'''
+

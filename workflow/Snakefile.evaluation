@@ -2,6 +2,7 @@ configfile: 'config/config.evaluation.yaml'
 
 ##### load rules #####
 include: 'rules/sicelore_data.smk'
+include: 'rules/scmixology2_data.smk'
 
 ##### main rules #####
 ##### add rule all ? #####
@@ -9,3 +10,7 @@ include: 'rules/sicelore_data.smk'
 rule evaluate_sicelore_data:
 	input:
 		'evaluation/results/sicelore_data/evaluation.pdf'
+
+rule evaluate_scmixology2_data:
+	input:
+		'evaluation/results/scmixology2_data/evaluation.pdf'

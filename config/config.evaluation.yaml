@@ -9,3 +9,11 @@ sicelcore_data:
   expect_cells: 200
   kit: 3prime
   version: v2
+
+scmixology2_data:
+  threads: 10
+  mem: 100000
+  time: "36:00:00"
+  expect_cells: 200
+  kit: 3prime
+  version: v3
