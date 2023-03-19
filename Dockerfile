@@ -153,4 +153,5 @@ RUN pip3 install pandas \
 	umap-learn==0.5.2 \
 	flake8 \
 	dominate \
-	ezcharts
+	ezcharts \
+	umi_tools \

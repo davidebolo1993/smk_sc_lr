@@ -1,9 +1,16 @@
-from glob import glob
+from glob import iglob
+from itertools import islice
+
+
+def get_reads(x):
+
+	return islice(iglob('resources/ont/' +x + '/*'), 1)
+
 
 rule wf_single_cell_v020:
 	input:
 		ref=config['reference'],
-		fq=lambda wildcards:glob('resources/fastq/nanopore/{sample}/*'.format(sample=wildcards.sample))
+		fq=lambda wildcards: get_reads(wildcards.sample)
 	output:
 		genes='results/ont/wf-single-cell/{sample}/{sample}/{sample}.gene_expression.counts.tsv',
 		transcripts='results/ont/wf-single-cell/{sample}/{sample}/{sample}.transcript_expression.counts.tsv'
