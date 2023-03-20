@@ -155,3 +155,4 @@ RUN pip3 install pandas \
 	dominate \
 	ezcharts \
 	umi_tools \
+	rapidfuzz
